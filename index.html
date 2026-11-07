@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top Up Robux & Testimoni</title>
+<link rel="icon" type="image/webp" href="assets/avatar.webp">
+<link rel="preload" as="image" href="assets/avatar.webp" type="image/webp">
+<meta name="description" content="Top up Robux harga bersahabat. Lihat testimoni pembeli, daftar harga, bayar lewat QRIS, pesan via WhatsApp.">
+<style>
+:root{
+  --bg1:#07041a; --bg2:#10073a; --pink:#ff3d9a; --cyan:#22e4ff; --gold:#ffc83d; --violet:#8a5cff; --green:#37ff8b;
+  --card:rgba(255,255,255,.07); --line:rgba(255,255,255,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;min-height:100vh;overflow-x:hidden;
+  background:radial-gradient(1200px 800px at 15% -10%,#2a0f6e 0%,transparent 60%),
+  radial-gradient(1000px 700px at 110% 10%,#00506b 0%,transparent 55%),linear-gradient(160deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+}
+#fx{position:fixed;inset:0;z-index:0;pointer-events:none}
+.blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:.33;z-index:0;pointer-events:none;animation:float 14s ease-in-out infinite}
+.b1{width:340px;height:340px;background:var(--pink);top:8%;left:-80px}
+.b2{width:380px;height:380px;background:var(--cyan);bottom:5%;right:-100px;animation-delay:-5s}
+.b3{width:260px;height:260px;background:var(--violet);top:50%;left:45%;animation-delay:-9s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-50px) scale(1.1)}66%{transform:translate(-30px,40px) scale(.92)}}
+
+/* Splash */
+#splash{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:linear-gradient(160deg,#07041a,#1a0a4d);transition:opacity .8s,visibility .8s}
+#splash.hide{opacity:0;visibility:hidden}
+.loader{text-align:center}
+.loader svg{width:110px;height:110px;margin-bottom:18px;animation:spin 1.6s linear infinite;filter:drop-shadow(0 0 24px rgba(34,228,255,.8))}
+@keyframes spin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+.bar{width:230px;height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 auto 14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));border-radius:99px;animation:load 1.7s ease forwards}
+@keyframes load{to{width:100%}}
+.loader p{letter-spacing:.3em;font-size:12px;opacity:.8}
+
+main{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 20px 90px}
+section{margin-top:70px;scroll-margin-top:20px}
+.title{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.title h2{font-size:clamp(22px,4vw,32px)}
+.title p{opacity:.7;font-size:14px;width:100%;margin-top:-6px}
+
+/* Hero */
+header{text-align:center;padding:48px 0 10px}
+.mascot{width:150px;height:150px;margin:0 auto 6px;animation:bobBig 4s ease-in-out infinite;filter:drop-shadow(0 18px 30px rgba(34,228,255,.45))}
+@keyframes bobBig{50%{transform:translateY(-14px) rotate(3deg)}}
+.sp{animation:twinkle 2.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+.sp:nth-of-type(2){animation-delay:-.7s}.sp:nth-of-type(3){animation-delay:-1.4s}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.5)}50%{opacity:1;transform:scale(1.1)}}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 16px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);font-size:13px;letter-spacing:.08em}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(55,255,139,.7)}70%{box-shadow:0 0 0 12px rgba(55,255,139,0)}100%{box-shadow:0 0 0 0 rgba(55,255,139,0)}}
+h1{font-size:clamp(34px,7vw,66px);line-height:1.05;margin:20px 0 14px;font-weight:900;letter-spacing:-.02em}
+.grad{background:linear-gradient(90deg,var(--gold),var(--pink),var(--cyan),var(--gold));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.sub{max-width:580px;margin:0 auto;opacity:.85;font-size:clamp(15px,2.4vw,18px);line-height:1.6;min-height:3.2em}
+.caret{display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.heroBtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px auto 0;max-width:640px}
+.stat{padding:16px 8px;border-radius:18px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);text-align:center}
+.stat b{display:block;font-size:clamp(20px,4.4vw,30px);font-weight:900;background:linear-gradient(90deg,var(--gold),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:11px;opacity:.7;letter-spacing:.08em}
+
+.btn{cursor:pointer;border:0;color:#fff;font-weight:700;font-size:15px;padding:13px 24px;border-radius:99px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan));background-size:200% 100%;transition:transform .25s,box-shadow .25s,background-position .6s;
+  box-shadow:0 10px 30px -8px rgba(255,61,154,.7)}
+.btn:hover{transform:translateY(-3px) scale(1.03);background-position:100% 0;box-shadow:0 16px 38px -8px rgba(34,228,255,.7)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--card);border:1px solid var(--line);box-shadow:none}
+.btn.wa{background:linear-gradient(120deg,#1fbf63,#2ee59d);box-shadow:0 10px 30px -8px rgba(46,229,157,.7)}
+
+/* Testimoni pilihan */
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;perspective:1200px}
+.card{width:calc((100% - 36px)/3);aspect-ratio:3/4;position:relative;border-radius:22px;cursor:zoom-in;opacity:0;transform:rotateY(-90deg) translateY(40px);
+  border:1px solid var(--line);background:var(--card);overflow:hidden;will-change:transform;box-shadow:0 20px 50px -20px rgba(0,0,0,.8)}
+.card.in{animation:flipIn .9s cubic-bezier(.2,.9,.25,1.2) forwards;animation-delay:var(--d)}
+@keyframes flipIn{0%{opacity:0;transform:rotateY(-90deg) translateY(60px) scale(.8)}100%{opacity:1;transform:rotateY(0) translateY(0) scale(1)}}
+.card.in.settled{animation:none;opacity:1;transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .15s ease-out,box-shadow .3s}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.card:hover img{transform:scale(1.08)}
+.card::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%);transition:transform .8s;pointer-events:none}
+.card:hover::before{transform:translateX(120%)}
+.card:hover{box-shadow:0 25px 60px -15px rgba(34,228,255,.55),0 0 0 1px rgba(34,228,255,.6)}
+
+/* Semua testimoni */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.gi{aspect-ratio:3/4;border-radius:16px;overflow:hidden;cursor:zoom-in;border:1px solid var(--line);background:var(--card);position:relative}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.gi:hover img{transform:scale(1.1)}
+.gi:hover{border-color:var(--cyan);box-shadow:0 14px 34px -10px rgba(34,228,255,.5)}
+
+.fh{display:flex;align-items:center;gap:10px;margin:32px 0 14px;font-size:19px;font-weight:800}
+.fh:first-child{margin-top:0}
+.fh em{font-style:normal;font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(34,228,255,.14);border:1px solid rgba(34,228,255,.45);color:var(--cyan)}
+
+/* Harga */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.pc{position:relative;padding:26px 18px 20px;border-radius:24px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);text-align:center;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.pc::before{content:"";position:absolute;width:160px;height:160px;left:50%;top:-70px;translate:-50% 0;border-radius:50%;background:radial-gradient(circle,rgba(34,228,255,.35),transparent 70%);transition:.4s}
+.pc:hover{transform:translateY(-8px);border-color:var(--cyan);box-shadow:0 22px 50px -18px rgba(34,228,255,.6)}
+.pc:hover::before{background:radial-gradient(circle,rgba(255,61,154,.45),transparent 70%)}
+.pc svg{width:62px;height:62px;position:relative;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 8px 14px rgba(34,228,255,.5))}
+.pc:nth-child(even) svg{animation-delay:-1.4s}
+@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}
+.pc .amt{font-size:34px;font-weight:900;margin-top:8px;position:relative}
+.pc .unit{font-size:12px;letter-spacing:.2em;opacity:.7;position:relative}
+.pc .price{margin:14px 0 16px;display:inline-block;padding:8px 18px;border-radius:99px;background:rgba(255,200,61,.14);border:1px solid rgba(255,200,61,.5);color:var(--gold);font-weight:800;font-size:18px;position:relative}
+.pc .btn{width:100%;position:relative}
+.ribbon{position:absolute;top:14px;right:-34px;rotate:38deg;background:linear-gradient(90deg,var(--pink),var(--gold));color:#2b0a00;font-size:11px;font-weight:900;padding:4px 40px;letter-spacing:.06em;z-index:3}
+
+/* Cara pesan */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;counter-reset:s}
+.step{padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);counter-increment:s;transition:transform .3s,border-color .3s}
+.step:hover{transform:translateY(-6px);border-color:var(--pink)}
+.step::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;margin-bottom:12px;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--cyan))}
+.step h3{margin-bottom:6px;font-size:17px}.step p{opacity:.75;font-size:14px;line-height:1.55}
+
+/* QRIS */
+.pay{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:30px;align-items:center;padding:30px;border-radius:28px;background:linear-gradient(135deg,rgba(255,61,154,.16),rgba(34,228,255,.14));border:1px solid var(--line)}
+.qwrap{position:relative;border-radius:24px;padding:5px;overflow:hidden;cursor:zoom-in;justify-self:center;width:100%;max-width:360px}
+.qwrap::before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,var(--pink),var(--cyan),var(--gold),var(--pink));animation:rot 5s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.qwrap img{position:relative;display:block;width:100%;border-radius:20px;background:#fff}
+.pay h3{font-size:clamp(22px,4vw,30px);margin-bottom:10px}
+.pay p{opacity:.82;line-height:1.65;margin-bottom:10px}
+.pay .sel{display:none;margin:10px 0;padding:10px 14px;border-radius:12px;background:rgba(55,255,139,.12);border:1px solid rgba(55,255,139,.5);font-size:14px}
+.pay .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+
+/* Kontak */
+.contact{text-align:center;padding:42px 22px;border-radius:28px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(55,255,139,.15),rgba(138,92,255,.22));border:1px solid var(--line)}
+.contact::after{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.1),transparent 30%);animation:rot 9s linear infinite}
+.contact>*{position:relative;z-index:2}
+.contact h2{font-size:clamp(24px,5vw,36px);margin-bottom:8px}
+.contact .num{font-size:clamp(26px,6vw,44px);font-weight:900;letter-spacing:.04em;margin:10px 0 20px;background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+footer{text-align:center;margin-top:40px;opacity:.55;font-size:13px;line-height:1.7}
+
+/* Tombol WA mengambang */
+#fab{position:fixed;right:18px;bottom:18px;z-index:150;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-size:28px;text-decoration:none;
+  background:linear-gradient(135deg,#1fbf63,#2ee59d);box-shadow:0 10px 30px rgba(46,229,157,.6);animation:fabp 2.2s infinite}
+@keyframes fabp{0%{box-shadow:0 0 0 0 rgba(46,229,157,.6),0 10px 30px rgba(46,229,157,.5)}70%{box-shadow:0 0 0 22px rgba(46,229,157,0),0 10px 30px rgba(46,229,157,.5)}100%{box-shadow:0 0 0 0 rgba(46,229,157,0),0 10px 30px rgba(46,229,157,.5)}}
+
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.show{opacity:1;transform:none}
+
+#lb{position:fixed;inset:0;z-index:400;background:rgba(5,2,18,.92);backdrop-filter:blur(10px);display:grid;place-items:center;opacity:0;visibility:hidden;transition:.35s;padding:20px}
+#lb.open{opacity:1;visibility:visible}
+#lb img{max-width:min(92vw,640px);max-height:86vh;border-radius:18px;transform:scale(.8);transition:transform .45s cubic-bezier(.2,.9,.3,1.3);box-shadow:0 30px 90px rgba(0,0,0,.8);background:#fff}
+#lb.open img{transform:scale(1)}
+#lb .x{position:absolute;top:18px;right:22px;font-size:34px;cursor:pointer;opacity:.85;background:none;border:0;color:#fff}
+
+
+/* ===== Penyegaran tampilan ===== */
+.rbx{width:62px;height:auto;position:relative;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(255,200,61,.45))}
+.pc:nth-child(even) .rbx{animation-delay:-1.4s}
+.pc::before{background:radial-gradient(circle,rgba(255,200,61,.3),transparent 70%)}
+.prices{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.pc .amt{font-size:30px}
+.ribbon.pop{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#06122b}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;text-align:left;padding:56px 0 6px}
+.hero .heroText{display:flex;flex-direction:column;align-items:flex-start}
+.hero h1{margin:18px 0 12px}
+.hero .sub{margin:0}
+.hero .heroBtns{justify-content:flex-start}
+.hero .stats{margin:30px 0 0;max-width:none;width:100%}
+.showcase{position:relative;justify-self:center;width:100%;max-width:430px}
+.showcase .big{width:100%;border-radius:26px;display:block;border:1px solid var(--line);box-shadow:0 30px 70px -20px rgba(138,92,255,.7);animation:bobBig 5s ease-in-out infinite}
+.showcase .mini{position:absolute;width:38%;right:-6%;bottom:-12%;border-radius:18px;border:3px solid #fff;box-shadow:0 20px 40px -10px rgba(0,0,0,.7);rotate:6deg}
+.showcase .coin{position:absolute;width:78px;left:-8%;top:-8%;filter:drop-shadow(0 12px 22px rgba(255,200,61,.7));animation:bob 3.4s ease-in-out infinite}
+.hero .badge{font-size:12px}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:34px}
+  .hero .heroText{align-items:center}.hero .heroBtns{justify-content:center}
+  .showcase{max-width:340px;margin-bottom:20px}
+}
+@media(max-width:760px){.prices{grid-template-columns:repeat(2,1fr);gap:12px}.pc{padding:22px 10px 16px}.pc .price{font-size:15px;padding:7px 12px}}
+[hidden]{display:none!important}
+@media(max-width:760px){
+  .card{width:calc((100% - 12px)/2)}.grid{gap:12px}
+  .pay{grid-template-columns:1fr;padding:22px}
+  header{padding-top:30px}
+  .gal{grid-template-columns:repeat(2,1fr)}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== Maskot & animasi tambahan ===== */
+#progress{position:fixed;top:0;left:0;height:4px;width:0;z-index:500;background:linear-gradient(90deg,var(--pink),var(--gold),var(--cyan));box-shadow:0 0 14px var(--cyan)}
+.loader .spImg{display:block;width:120px;height:auto;margin:0 auto 14px;animation:hopLoop 1s ease-in-out infinite;filter:drop-shadow(0 0 24px rgba(34,228,255,.8))}
+@keyframes hopLoop{0%,100%{transform:translateY(0) scale(1.02,.97)}50%{transform:translateY(-16px) scale(.98,1.03)}}
+
+.showcase{max-width:460px}
+.stage{position:relative;aspect-ratio:4/5;display:grid;place-items:end center}
+.stage::before{content:"";position:absolute;inset:8% 2% 4%;border-radius:50%;background:conic-gradient(from 0deg,var(--pink),var(--violet),var(--cyan),var(--gold),var(--pink));filter:blur(40px);opacity:.55;animation:rot 8s linear infinite}
+.stage::after{content:"";position:absolute;bottom:0;left:14%;right:14%;height:22px;border-radius:50%;background:rgba(0,0,0,.5);filter:blur(10px);animation:shd 4.2s ease-in-out infinite}
+@keyframes shd{50%{transform:scale(.78);opacity:.55}}
+.tilt{position:relative;z-index:2;width:88%;transform-origin:50% 100%;transition:transform .15s ease-out}
+.avatar{display:block;width:100%;height:auto;cursor:pointer;transform-origin:50% 100%;animation:idle 4.2s ease-in-out infinite;filter:drop-shadow(0 24px 28px rgba(0,0,0,.55));-webkit-user-drag:none;user-select:none;-webkit-tap-highlight-color:transparent}
+@keyframes idle{0%,100%{transform:translateY(0) rotate(-1deg) scale(1,1)}50%{transform:translateY(-12px) rotate(1.2deg) scale(1.01,1.02)}}
+.avatar.hop{animation:hop .75s cubic-bezier(.3,1.5,.5,1)}
+@keyframes hop{0%{transform:scale(1,1)}22%{transform:scale(1.08,.9)}55%{transform:translateY(-36px) scale(.95,1.08) rotate(-4deg)}100%{transform:scale(1,1)}}
+.bubble{position:absolute;z-index:5;top:1%;left:0;max-width:64%;padding:12px 16px;border-radius:20px 20px 20px 4px;background:#fff;color:#1b1040;font-weight:700;font-size:14px;line-height:1.4;box-shadow:0 14px 34px -8px rgba(0,0,0,.6);opacity:0;transform-origin:20% 100%}
+.bubble.pop{animation:pop .6s cubic-bezier(.2,1.5,.4,1) both}
+.bubble::after{content:"";position:absolute;left:24px;bottom:-8px;width:18px;height:18px;background:#fff;transform:rotate(45deg);border-radius:0 0 5px 0}
+@keyframes pop{from{opacity:0;transform:scale(.4) translateY(20px)}to{opacity:1;transform:none}}
+.tag{position:absolute;z-index:6;right:0;bottom:7%;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:900;letter-spacing:.08em;color:#2b0a00;background:linear-gradient(90deg,var(--gold),var(--pink));box-shadow:0 10px 24px -8px rgba(255,61,154,.8);rotate:-4deg;animation:tagw 3s ease-in-out infinite}
+@keyframes tagw{50%{rotate:3deg;transform:translateY(-4px)}}
+.fl{position:absolute;z-index:3;width:46px;height:46px;filter:drop-shadow(0 8px 16px rgba(34,228,255,.6));animation:bob 3.2s ease-in-out infinite;pointer-events:none}
+.fl.a{top:16%;right:0}
+.fl.b{top:50%;left:-5%;width:36px;height:36px;animation-delay:-1s}
+.fl.c{bottom:22%;right:-3%;width:40px;height:40px;animation-delay:-2s}
+.showcase .coin{left:-3%;top:auto;bottom:10%;width:62px;z-index:4;border-radius:50%}
+
+/* pita berjalan */
+.marq{margin:52px -20px 0;overflow:hidden;border-block:1px solid var(--line);background:rgba(255,255,255,.05);backdrop-filter:blur(8px);padding:13px 0;rotate:-1.2deg}
+.marq div{display:flex;gap:46px;width:max-content;animation:mq 30s linear infinite;font-weight:800;letter-spacing:.14em;font-size:14px;white-space:nowrap}
+.marq span::before{content:"💎  "}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* judul, tombol, kartu harga */
+.title h2{position:relative}
+.title h2::after{content:"";display:block;height:4px;width:0;margin-top:8px;border-radius:9px;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width 1s .35s ease}
+.title.show h2::after{width:72px}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);transform:translateX(-120%);animation:sh 3.6s ease-in-out infinite;pointer-events:none}
+.btn.ghost::after{display:none}
+@keyframes sh{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.pc::after{content:"";position:absolute;inset:0;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.17),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.pc:hover::after{opacity:1}
+
+/* efek ledakan koin saat klik */
+.bst{position:fixed;z-index:600;pointer-events:none;font-style:normal;font-size:20px;animation:bst 1s ease-out forwards}
+@keyframes bst{from{opacity:1;transform:translate(-50%,-50%) scale(.5)}to{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.2) rotate(240deg)}}
+
+/* avatar menyapa di kontak */
+.contact .wave{position:absolute;left:3%;bottom:0;width:150px;height:auto;z-index:2;transform-origin:50% 100%;animation:waveB 3.2s ease-in-out infinite;filter:drop-shadow(0 12px 18px rgba(0,0,0,.5));pointer-events:none}
+@keyframes waveB{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(3deg) translateY(-8px)}}
+
+@media(max-width:860px){.showcase{max-width:340px}.bubble{font-size:13px;padding:10px 13px}}
+@media(max-width:760px){
+  .contact .wave{position:relative;left:auto;bottom:auto;display:block;margin:0 auto 6px;width:118px}
+  .marq{margin-top:40px}
+}
+
+/* ===== Foto testimoni: tajam, rasio asli, tanpa dipotong ===== */
+.grid{perspective:none;align-items:flex-start}
+.card{will-change:auto;aspect-ratio:3/4}
+.card.ld{aspect-ratio:auto}
+.card.ld img{height:auto;object-fit:contain}
+.card.in.settled{transform:none;transition:box-shadow .3s,border-color .3s}
+.card:hover img{transform:none}
+.card::before{display:none}
+.card img,.gi img{image-rendering:auto}
+
+/* galeri model masonry: tinggi mengikuti foto asli */
+.gal{display:block;column-width:230px;column-gap:14px}
+.gi{display:block;break-inside:avoid;margin:0 0 14px;aspect-ratio:3/4}
+.gi.ld{aspect-ratio:auto}
+.gi.ld img{height:auto;object-fit:contain}
+.gi:hover img{transform:none}
+
+/* tampilan penuh (lightbox): ukuran besar + ketuk untuk zoom */
+#lb img{max-width:min(96vw,1400px);max-height:92vh;object-fit:contain;cursor:zoom-in}
+#lb.zoomed{display:block;overflow:auto;padding:0}
+#lb.zoomed #lbc{display:grid;place-items:center;width:max-content;min-width:100%;min-height:100%;padding:16px}
+#lb.zoomed img{max-width:none;max-height:none;width:auto;cursor:zoom-out;border-radius:8px}
+#lb .x{position:fixed;z-index:3;top:12px;right:14px;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.55);font-size:30px;line-height:44px;padding:0}
+#lb .hint{position:fixed;z-index:3;bottom:14px;left:50%;translate:-50% 0;font-size:12px;opacity:.75;background:rgba(0,0,0,.55);padding:7px 14px;border-radius:99px;pointer-events:none;white-space:nowrap}
+
+@media(max-width:760px){
+  .grid{gap:14px}
+  .card{width:100%}                       /* di HP: 1 foto per baris supaya tulisannya terbaca */
+  .gal{column-width:auto;column-count:2;column-gap:10px}
+  .gi{margin-bottom:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- Ikon permata (desain orisinal) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ff3ff"/><stop offset="1" stop-color="#3a7bff"/></linearGradient>
+    <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9a6ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient>
+    <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22e4ff"/><stop offset="1" stop-color="#1b4fd8"/></linearGradient>
+    <symbol id="gem" viewBox="0 0 200 200">
+      <polygon points="50,40 150,40 185,85 100,175 15,85" fill="url(#gA)"/>
+      <polygon points="50,40 100,85 15,85" fill="#bdf8ff" opacity=".85"/>
+      <polygon points="150,40 185,85 100,85" fill="#5aa6ff" opacity=".9"/>
+      <polygon points="50,40 150,40 100,85" fill="#e9fdff" opacity=".9"/>
+      <polygon points="15,85 100,85 100,175" fill="url(#gC)" opacity=".85"/>
+      <polygon points="185,85 100,85 100,175" fill="url(#gB)" opacity=".55"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="splash"><div class="loader"><img class="spImg" src="assets/avatar.webp" alt="" width="120"><div class="bar"><i></i></div><p>MEMUAT...</p></div></div>
+<div id="progress"></div>
+<canvas id="fx"></canvas>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<a id="fab" href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">💬</a>
+
+<main>
+  <header class="hero">
+    <div class="heroText">
+    <div class="badge rv"><span class="dot"></span> TOP UP ROBUX • PESAN VIA WHATSAPP</div>
+    <h1 class="rv">Beli <span class="grad">Robux</span><br>Harga Bersahabat</h1>
+    <p class="sub rv"><span id="typed"></span><span class="caret"></span></p>
+    <div class="heroBtns rv">
+      <a class="btn wa" data-wa="Halo kak, saya mau beli Robux" href="#" target="_blank" rel="noopener">💬 Pesan via WhatsApp</a>
+      <a class="btn ghost" href="#harga">💎 Lihat Harga</a>
+    </div>
+    <div class="stats rv">
+      <div class="stat"><b id="stT" data-to="0">0</b><span>TESTIMONI</span></div>
+      <div class="stat"><b data-to="18">0</b><span>PILIHAN PAKET</span></div>
+      <div class="stat"><b>QRIS</b><span>PEMBAYARAN</span></div>
+    </div>
+    </div>
+    <div class="showcase rv">
+      <div class="stage" id="stage">
+        <div class="bubble" id="bubble"></div>
+        <svg class="fl a" viewBox="0 0 200 200" aria-hidden="true"><use href="#gem"/></svg>
+        <svg class="fl b" viewBox="0 0 200 200" aria-hidden="true"><use href="#gem"/></svg>
+        <svg class="fl c" viewBox="0 0 200 200" aria-hidden="true"><use href="#gem"/></svg>
+        <img class="coin" src="https://i.postimg.cc/8sfPdgyh/images-(1).jpg" alt="" width="62" height="62">
+        <div class="tilt" id="tilt">
+          <img class="avatar" id="avatar" src="assets/avatar.webp" alt="Maskot toko Robux" width="862" height="1104" decoding="async" fetchpriority="high" draggable="false">
+        </div>
+        <div class="tag">⭐ MASKOT TOKO</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="marq" aria-hidden="true"><div>
+    <span>TOP UP ROBUX</span><span>HARGA BERSAHABAT</span><span>BAYAR VIA QRIS</span><span>PESAN VIA WHATSAPP</span><span>BANYAK PILIHAN PAKET</span><span>KIRIM BUKTI LEWAT WHATSAPP</span>
+    <span>TOP UP ROBUX</span><span>HARGA BERSAHABAT</span><span>BAYAR VIA QRIS</span><span>PESAN VIA WHATSAPP</span><span>BANYAK PILIHAN PAKET</span><span>KIRIM BUKTI LEWAT WHATSAPP</span>
+  </div></div>
+
+  <section id="pilihan" hidden>
+    <div class="title rv">
+      <h2>🔥 Testimoni Pilihan</h2>
+      <button class="btn ghost" id="shuffle">🎲 Ganti Pilihan</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="semua" hidden>
+    <div class="title rv"><h2>📸 Semua Testimoni</h2></div>
+    <div id="galwrap"></div>
+  </section>
+
+  <section id="harga">
+    <div class="title rv"><h2>💎 List Harga Robux</h2><p>Klik "Beli" untuk langsung chat WhatsApp dengan paket yang sudah terisi.</p></div>
+    <div class="prices" id="prices"></div>
+  </section>
+
+  <section id="cara">
+    <div class="title rv"><h2>🧭 Cara Pemesanan</h2></div>
+    <div class="steps">
+      <div class="step rv"><h3>Pilih Paket</h3><p>Pilih jumlah Robux di list harga lalu klik tombol Beli.</p></div>
+      <div class="step rv"><h3>Chat WhatsApp</h3><p>Kamu diarahkan ke WhatsApp penjual dengan pesan yang sudah terisi.</p></div>
+      <div class="step rv"><h3>Bayar via QRIS</h3><p>Scan QRIS di bawah dan bayar sesuai nominal paket.</p></div>
+      <div class="step rv"><h3>Kirim Bukti Bayar</h3><p>Kirim screenshot bukti pembayaran ke WhatsApp yang sama.</p></div>
+    </div>
+  </section>
+
+  <section id="bayar">
+    <div class="title rv"><h2>💳 Pembayaran QRIS</h2></div>
+    <div class="pay rv">
+      <div class="qwrap" id="qwrap" title="Klik untuk memperbesar">
+        <img id="qris" src="https://i.postimg.cc/VLbBKrbs/qris.jpg" alt="QRIS pembayaran" loading="lazy">
+      </div>
+      <div>
+        <h3>Scan &amp; Bayar</h3>
+        <p>Scan QRIS ini dengan aplikasi e-wallet atau m-banking apa saja, lalu bayar sesuai nominal paket yang dipilih.</p>
+        <div class="sel" id="sel"></div>
+        <p><b>Setelah membayar:</b> kirim bukti pembayaran ke WhatsApp. Chat akan terbuka, lalu lampirkan screenshot bukti bayarnya.</p>
+        <div class="row">
+          <a class="btn wa" id="bukti" href="#" target="_blank" rel="noopener">🧾 Kirim Bukti Pembayaran</a>
+          <a class="btn ghost" href="https://postimg.cc/9rC7Mfps" target="_blank" rel="noopener">🔍 Buka QRIS Ukuran Penuh</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <div class="contact rv">
+      <img class="wave" src="assets/avatar.webp" alt="" width="150" height="192" loading="lazy">
+      <h2>📞 Kontak Pemesanan</h2>
+      <p style="opacity:.8">Chat WhatsApp untuk pemesanan dan konfirmasi pembayaran</p>
+      <div class="num" id="numTampil"></div>
+      <a class="btn wa" data-wa="Halo kak, saya mau beli Robux" href="#" target="_blank" rel="noopener">💬 Chat Sekarang</a>
+    </div>
+  </section>
+
+  <footer>© <span id="yr"></span> <span id="shop"></span><br>Website ini tidak berafiliasi dengan Roblox Corporation.</footer>
+</main>
+
+<div id="lb"><button class="x" aria-label="Tutup">×</button><div id="lbc"></div><div class="hint">Ketuk foto untuk zoom</div></div>
+
+<script src="config.js"></script>
+<script>
+/* ============ PENGATURAN ============ */
+const SITE_ = (typeof SITE !== "undefined" && SITE) || {};
+function normNomor(n){let d=String(n||"").replace(/\D/g,"");if(d.startsWith("0"))d="62"+d.slice(1);else if(d.startsWith("8"))d="62"+d;return d}
+function tampilNomor(wa){const l="0"+wa.replace(/^62/,"");return l.length>8?l.slice(0,4)+"-"+l.slice(4,8)+"-"+l.slice(8):l}
+const _wa = normNomor(SITE_.nomor || "087769005955");
+const CONFIG = {
+  namaToko: SITE_.namaToko || "Toko Robux",
+  wa: _wa,                      // otomatis dari config.js
+  waTampil: tampilNomor(_wa),   // otomatis dari config.js
+  namaBA: SITE_.namaBA || "",
+  folder: "testi",               // taruh semua foto testimoni di folder ini (subfolder boleh)
+  versiFoto: "2",                // naikkan angkanya kalau foto diganti, supaya browser tidak memakai foto lama dari cache
+  jumlahPilihan: 5,
+  daftarUrl: [                  // CADANGAN: dipakai hanya kalau folder testi masih kosong
+    "https://i.postimg.cc/McmytjdM/Whats-App-Image-2026-10-22-at-18-48-11.jpg",
+    "https://i.postimg.cc/R3LcGnXH/Whats-App-Image-2026-10-22-at-18-48-12.jpg",
+    "https://i.postimg.cc/VSWj4bDn/Whats-App-Image-2026-10-22-at-18-48-12-(1).jpg",
+    "https://i.postimg.cc/5HSwpFn8/Whats-App-Image-2026-10-22-at-18-48-12-(2).jpg",
+    "https://i.postimg.cc/5HSwpFnz/Whats-App-Image-2026-10-22-at-18-48-12-(3).jpg",
+    "https://i.postimg.cc/qtx8QCjc/Whats-App-Image-2026-10-22-at-18-48-13.jpg",
+    "https://i.postimg.cc/v1tWX63r/Whats-App-Image-2026-10-22-at-18-48-13-(1).jpg",
+    "https://i.postimg.cc/67fdzGYd/Whats-App-Image-2026-10-22-at-18-48-13-(2).jpg",
+    "https://i.postimg.cc/4KQzwhBb/Whats-App-Image-2026-10-22-at-18-48-13-(3).jpg",
+    "https://i.postimg.cc/94YG1qJp/Whats-App-Image-2026-10-22-at-18-48-14.jpg",
+    "https://i.postimg.cc/CZsjJfms/Whats-App-Image-2026-10-22-at-18-48-14-(1).jpg",
+    "https://i.postimg.cc/p9JDknqB/Whats-App-Image-2026-10-22-at-18-48-14-(2).jpg",
+    "https://i.postimg.cc/KKDnQgJ0/Whats-App-Image-2026-10-22-at-18-48-15.jpg",
+    "https://i.postimg.cc/Nyk1brpD/Whats-App-Image-2026-10-22-at-18-48-15-(1).jpg",
+    "https://i.postimg.cc/R3LcGnXX/Whats-App-Image-2026-10-22-at-18-48-15-(2).jpg",
+    "https://i.postimg.cc/N9GRnfzJ/Whats-App-Image-2026-10-22-at-18-48-16.jpg",
+    "https://i.postimg.cc/Lq3zvZNQ/Whats-App-Image-2026-10-22-at-18-48-16-(1).jpg",
+    "https://i.postimg.cc/p9JDknq1/Whats-App-Image-2026-10-22-at-18-48-16-(2).jpg",
+    "https://i.postimg.cc/hJ19M7p6/Whats-App-Image-2026-10-22-at-18-48-16-(3).jpg",
+    "https://i.postimg.cc/S2QcPNv1/Whats-App-Image-2026-10-22-at-18-48-17.jpg",
+    "https://i.postimg.cc/8FmhwrZQ/Whats-App-Image-2026-10-22-at-18-48-17-(1).jpg",
+    "https://i.postimg.cc/GBxkzsX0/Whats-App-Image-2026-10-22-at-18-48-17-(2).jpg",
+    "https://i.postimg.cc/MMZ1LKFC/Whats-App-Image-2026-10-22-at-18-48-18.jpg",
+    "https://i.postimg.cc/8JkLYPY8/Whats-App-Image-2026-10-22-at-18-48-18-(1).jpg",
+    "https://i.postimg.cc/VrsXhLV3/Whats-App-Image-2026-10-22-at-18-48-18-(2).jpg",
+    "https://i.postimg.cc/MMZ1LKL6/Whats-App-Image-2026-10-22-at-18-48-19.jpg",
+    "https://i.postimg.cc/phVKSX63/Whats-App-Image-2026-10-22-at-18-48-19-(1).jpg",
+    "https://i.postimg.cc/CBMb2L2F/Whats-App-Image-2026-10-22-at-18-48-19-(2).jpg",
+    "https://i.postimg.cc/jwqy1d1j/Whats-App-Image-2026-10-22-at-18-48-20.jpg",
+    "https://i.postimg.cc/wyxDrTrH/Whats-App-Image-2026-10-22-at-18-48-20-(1).jpg",
+    "https://i.postimg.cc/ftWYPTPM/Whats-App-Image-2026-10-22-at-18-48-20-(2).jpg",
+    "https://i.postimg.cc/474p0N0x/Whats-App-Image-2026-10-22-at-18-48-20-(3).jpg",
+    "https://i.postimg.cc/CBvbppyw/Whats-App-Image-2026-10-22-at-18-48-21.jpg",
+    "https://i.postimg.cc/XGN9P7PX/Whats-App-Image-2026-10-22-at-18-48-21-(1).jpg",
+    "https://i.postimg.cc/R6CwYVYF/Whats-App-Image-2026-10-22-at-18-48-21-(2).jpg",
+    "https://i.postimg.cc/G83vfhf8/Whats-App-Image-2026-10-22-at-18-48-22.jpg",
+    "https://i.postimg.cc/ZBY6QKQ9/Whats-App-Image-2026-10-22-at-18-48-22-(1).jpg",
+    "https://i.postimg.cc/N9GRnfnK/Whats-App-Image-2026-10-22-at-18-48-22-(2).jpg",
+    "https://i.postimg.cc/7GBSrrvH/Whats-App-Image-2026-10-22-at-18-48-23.jpg",
+    "https://i.postimg.cc/r0h52268/Whats-App-Image-2026-10-22-at-18-48-23-(1).jpg",
+    "https://i.postimg.cc/MMs1JJkp/Whats-App-Image-2026-10-22-at-18-48-23-(2).jpg",
+    "https://i.postimg.cc/DJC133Vm/Whats-App-Image-2026-10-22-at-18-48-24.jpg",
+    "https://i.postimg.cc/MMs1JJkZ/Whats-App-Image-2026-10-22-at-18-48-24-(1).jpg",
+    "https://i.postimg.cc/XG2966Mq/Whats-App-Image-2026-10-22-at-18-48-24-(2).jpg",
+    "https://i.postimg.cc/xJsLVVrk/Whats-App-Image-2026-10-22-at-18-48-25.jpg"
+  ],
+  daftarManual: [               // cadangan otomatis: dipakai kalau testi/daftar.json tidak bisa dibaca
+    "WhatsApp Image 2026-10-22 at 18.48.11.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.12 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.12 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.12 (3).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.12.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.13 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.13 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.13 (3).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.13.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.14 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.14 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.14.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.15 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.15 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.15.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.16 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.16 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.16 (3).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.16.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.17 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.17 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.17.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.18 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.18 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.18.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.19 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.19 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.19.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.20 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.20 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.20 (3).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.20.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.21 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.21 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.21.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.22 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.22 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.22.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.23 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.23 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.23.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.24 (1).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.24 (2).jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.24.jpeg",
+    "WhatsApp Image 2026-10-22 at 18.48.25.jpeg"
+  ],
+  githubUser: "", githubRepo: "" // hanya untuk tes di luar github.io
+};
+const SATUAN = "Wibu";
+/* Harga: 100-500 mengikuti daftar awal. Lanjutan memakai pola yang sama:
+   tarif per 100 Robux = 12,7 di 500, turun 0,1 setiap kelipatan 500 (12,6 di 1000, 12,5 di 1500, dst),
+   dengan batas bawah 12,0 per 100. Ubah MIN_TARIF / LANGKAH kalau mau diatur ulang. */
+const MIN_TARIF = 12.0, LANGKAH = 0.1;
+const tarif = n => Math.max(MIN_TARIF, +(12.7 - LANGKAH*Math.floor((n-500)/500)).toFixed(2));
+const fmt = v => String(+v.toFixed(2)).replace(".",",");
+const AWAL = {100:"14",200:"27",300:"40",400:"53",500:"63,5"};
+const JUMLAH = [100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,4000,5000,7500,10000];
+const HARGA = JUMLAH.map(n=>[n, AWAL[n] || fmt(n/100*tarif(n))]);
+const POPULER = 1000, HEMAT = 10000;
+const TAGLINE = "Pilih paket, bayar lewat QRIS, lalu kirim bukti pembayaran ke WhatsApp. Gampang dan jelas.";
+/* ===================================== */
+
+const $ = s => document.querySelector(s);
+const EXT = /\.(jpe?g|png|webp|gif|avif)$/i;
+const waLink = t => `https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(t)}`;
+let paket = null;
+
+document.title = "Top Up Robux • " + CONFIG.namaToko;
+$("#shop").textContent = CONFIG.namaToko;
+$("#yr").textContent = new Date().getFullYear();
+$("#numTampil").textContent = CONFIG.waTampil;
+document.querySelectorAll("[data-wa]").forEach(a=>a.href=waLink(a.dataset.wa));
+$("#fab").href = waLink("Halo kak, saya mau beli Robux");
+
+function updBukti(){
+  const t = paket
+    ? `Halo kak, ini bukti pembayaran saya untuk ${paket[0]} Robux (${paket[1]} ${SATUAN}).`
+    : "Halo kak, ini bukti pembayaran saya untuk pembelian Robux.";
+  $("#bukti").href = waLink(t);
+  const s = $("#sel");
+  if(paket){s.style.display="block";s.innerHTML=`✅ Paket dipilih: <b>${paket[0]} Robux = ${paket[1]} ${SATUAN}</b>`}
+}
+updBukti();
+
+/* Daftar harga */
+(function(){
+  const box = $("#prices");
+  HARGA.forEach((h,i)=>{
+    const d = document.createElement("div");d.className="pc rv";
+    d.innerHTML = `${h[0]===HEMAT?'<div class="ribbon">PALING HEMAT</div>':(h[0]===POPULER?'<div class="ribbon pop">POPULER</div>':'')}
+      <img class="rbx" src="https://i.postimg.cc/8sfPdgyh/images-(1).jpg" alt="" width="62" height="67" loading="lazy">
+      <div class="amt">${h[0].toLocaleString("id-ID")}</div><div class="unit">ROBUX</div>
+      <div class="price">${h[1]} ${SATUAN}</div>
+      <a class="btn wa" target="_blank" rel="noopener" href="${waLink(`Halo kak, saya mau beli ${h[0]} Robux (${h[1]} ${SATUAN}). Mohon info selanjutnya.`)}">🛒 Beli</a>`;
+    d.querySelector("a").addEventListener("click",()=>{paket=h;updBukti()});
+    d.style.transitionDelay=(i%3)*0.08+"s";
+    box.appendChild(d);
+  });
+})();
+
+/* Acak aman */
+function rnd(n){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}
+function acak(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+
+/* Ambil daftar foto: semua file di folder testimoni + semua subfolder-nya */
+function normalisasi(x,pre=""){
+  let out=[];
+  if(Array.isArray(x)) x.forEach(v=>out=out.concat(normalisasi(v,pre)));
+  else if(typeof x==="string"){ if(EXT.test(x)) out.push(pre+x.replace(/^\/+/,"")) }
+  else if(x&&typeof x==="object") Object.keys(x).forEach(k=>out=out.concat(normalisasi(x[k],pre+k.replace(/^\/+|\/+$/g,"")+"/")));
+  return out;
+}
+async function dariGithub(){
+  let user=CONFIG.githubUser, repo=CONFIG.githubRepo;
+  if(location.hostname.endsWith(".github.io")){
+    user=location.hostname.split(".")[0];
+    const p=location.pathname.split("/")[1];
+    repo=(p&&!p.includes("."))?p:location.hostname;
+  }
+  if(!user||!repo) return [];
+  const awal=CONFIG.folder.replace(/\/+$/,"")+"/";
+  for(const br of ["HEAD","main","master"]){
+    try{
+      const r=await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${br}?recursive=1`);
+      if(!r.ok) continue;
+      const j=await r.json();
+      return (j.tree||[]).filter(f=>f.type==="blob"&&f.path.startsWith(awal)&&EXT.test(f.path)).map(f=>f.path.slice(awal.length));
+    }catch(e){}
+  }
+  return [];
+}
+async function ambilDaftar(){
+  let l=[];
+  /* 1) daftar.json di folder testi (dibuat otomatis saat deploy, atau lewat halaman /admin) */
+  try{const r=await fetch(CONFIG.folder+"/daftar.json",{cache:"no-store"});if(r.ok) l=normalisasi(await r.json())}catch(e){}
+  /* 2) daftar manual / GitHub API (opsional) */
+  if(!l.length && CONFIG.daftarManual.length) l=normalisasi(CONFIG.daftarManual);
+  if(!l.length) l=await dariGithub();
+  /* 3) cadangan: link gambar lama, hanya kalau folder testi belum berisi foto */
+  if(!l.length && CONFIG.daftarUrl.length) return [...CONFIG.daftarUrl];
+  return [...new Set(l)].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));
+}
+
+let semua = [];
+const src = n => /^https?:/.test(n) ? n : CONFIG.folder+"/"+n.split("/").map(encodeURIComponent).join("/")+((CONFIG.versiFoto && /^https?:$/.test(location.protocol))?"?v="+CONFIG.versiFoto:""); // ?v hanya saat di-hosting, biar tetap jalan waktu index.html dibuka langsung (file://)
+
+function tampilPilihan(){
+  const grid=$("#grid");grid.innerHTML="";
+  acak(semua).slice(0,CONFIG.jumlahPilihan).forEach((n,i)=>{
+    const c=document.createElement("div");c.className="card";c.style.setProperty("--d",(0.12*i+0.1)+"s");
+    const im=document.createElement("img");im.src=src(n);im.alt="Testimoni pembeli Robux";
+    im.decoding="async";im.onload=()=>c.classList.add("ld");im.onerror=()=>c.remove();
+    c.appendChild(im);
+    c.addEventListener("click",()=>buka(im.cloneNode()));
+    c.addEventListener("pointermove",e=>{
+      if(!c.classList.contains("settled"))return;
+      const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.setProperty("--ry",(x*14)+"deg");c.style.setProperty("--rx",(-y*14)+"deg");
+    });
+    c.addEventListener("pointerleave",()=>{c.style.setProperty("--ry","0deg");c.style.setProperty("--rx","0deg")});
+    grid.appendChild(c);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>c.classList.add("in")));
+    setTimeout(()=>c.classList.add("settled"),1100+i*120);
+  });
+}
+
+function tampilSemua(){
+  const w=$("#galwrap");w.innerHTML="";
+  const grup=new Map();
+  semua.forEach(n=>{
+    const i=n.lastIndexOf("/"),k=(i<0||/^https?:/.test(n))?"":n.slice(0,i);
+    if(!grup.has(k))grup.set(k,[]);
+    grup.get(k).push(n);
+  });
+  const kunci=[...grup.keys()].sort((a,b)=>a===""?-1:b===""?1:a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));
+  const adaFolder=kunci.some(k=>k!=="");
+  kunci.forEach(k=>{
+    const files=grup.get(k);
+    if(adaFolder){
+      const h=document.createElement("h3");h.className="fh rv";
+      const t=document.createElement("span");
+      t.textContent="📁 "+(k===""?"Lainnya":k.split("/").map(x=>x.replace(/_+/g," ")).join(" › "));
+      const c=document.createElement("em");c.textContent=files.length;
+      h.append(t,c);w.appendChild(h);
+    }
+    const g=document.createElement("div");g.className="gal";
+    files.forEach((n,i)=>{
+      const d=document.createElement("div");d.className="gi rv";d.style.transitionDelay=(i%6)*0.06+"s";
+      const im=new Image();im.loading="lazy";im.alt="Testimoni pembeli Robux";im.src=src(n);
+      im.decoding="async";im.onload=()=>d.classList.add("ld");im.onerror=()=>d.remove();
+      d.appendChild(im);d.addEventListener("click",()=>buka(im.cloneNode()));
+      g.appendChild(d);
+    });
+    w.appendChild(g);
+  });
+}
+
+/* Lightbox */
+function buka(el){const b=$("#lbc");b.innerHTML="";b.appendChild(el);const lb=$("#lb");lb.classList.remove("zoomed");lb.scrollTop=0;lb.scrollLeft=0;lb.classList.add("open")}
+$("#lb").addEventListener("click",e=>{const lb=$("#lb");if(e.target.tagName==="IMG"){lb.classList.toggle("zoomed");return}lb.classList.remove("open","zoomed")});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#lb").classList.remove("open","zoomed")});
+$("#qwrap").addEventListener("click",()=>buka($("#qris").cloneNode()));
+
+$("#shuffle").addEventListener("click",()=>{
+  document.querySelectorAll(".card").forEach(c=>{c.classList.remove("settled");c.style.animation="none";c.style.opacity=0});
+  setTimeout(tampilPilihan,250);
+});
+
+/* Efek */
+function ketik(){const el=$("#typed");let i=0;(function n(){el.textContent=TAGLINE.slice(0,i++);if(i<=TAGLINE.length)setTimeout(n,24)})()}
+function hitung(){
+  document.querySelectorAll("[data-to]").forEach(el=>{
+    const to=+el.dataset.to,t0=performance.now(),dur=1600;
+    (function f(t){const p=Math.min((t-t0)/dur,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0);
+  });
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target)}}),{threshold:.12});
+function reveal(){document.querySelectorAll(".rv:not(.show)").forEach(el=>io.observe(el))}
+
+/* Partikel koin */
+(function(){
+  const cv=$("#fx"),cx=cv.getContext("2d");let W,H,P=[];
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  size();addEventListener("resize",size);
+  const N=Math.min(36,Math.floor(innerWidth/32));
+  const mk=()=>({x:Math.random()*W,y:Math.random()*H,r:6+Math.random()*12,v:.3+Math.random()*.9,s:Math.random()*6.28,w:.01+Math.random()*.03,a:.25+Math.random()*.5,c:Math.random()<.5?"255,200,61":(Math.random()<.6?"34,228,255":"255,61,154"),g:Math.random()<.4});
+  for(let i=0;i<N;i++)P.push(mk());
+  let mx=-999,my=-999;addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY});
+  (function loop(){
+    cx.clearRect(0,0,W,H);
+    P.forEach(p=>{
+      p.y-=p.v;p.s+=p.w;p.x+=Math.sin(p.s)*.6;
+      const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<110){p.x+=dx/d*2.5;p.y+=dy/d*2.5}
+      if(p.y<-30){p.y=H+30;p.x=Math.random()*W}
+      cx.save();cx.translate(p.x,p.y);
+      cx.fillStyle=`rgba(${p.c},${p.a})`;cx.shadowColor=`rgba(${p.c},.9)`;cx.shadowBlur=14;
+      if(p.g){cx.rotate(p.s*.4);cx.beginPath();cx.moveTo(0,-p.r);cx.lineTo(p.r*.8,0);cx.lineTo(0,p.r);cx.lineTo(-p.r*.8,0);cx.closePath();cx.fill()}
+      else{cx.scale(Math.max(.15,Math.abs(Math.cos(p.s))),1);cx.beginPath();cx.arc(0,0,p.r,0,7);cx.fill()}
+      cx.restore();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* Mulai */
+(async function(){
+  semua = await ambilDaftar();
+  if(semua.length){
+    $("#stT").dataset.to = semua.length;
+    $("#pilihan").hidden=false;$("#semua").hidden=false;
+  } else {
+    $("#stT").closest(".stat").hidden = true;
+    document.querySelector(".stats").style.gridTemplateColumns="repeat(2,1fr)";
+  }
+  setTimeout(()=>{
+    $("#splash").classList.add("hide");
+    if(semua.length){tampilPilihan();tampilSemua()}
+    ketik();hitung();reveal();
+  },1900);
+})();
+</script>
+<script>
+/* ===== Maskot, bubble chat, dan efek tambahan ===== */
+(function(){
+  const bub=$("#bubble"),av=$("#avatar"),tilt=$("#tilt"),stage=$("#stage");
+  const ba = CONFIG.namaBA ? ` Aku ${CONFIG.namaBA}.` : "";
+  const pesan=[
+    `Halo kak! 👋 Selamat datang di ${CONFIG.namaToko}.${ba}`,
+    "Mau top up Robux? Pilih paketnya di bawah ya 💎",
+    "Bayar gampang lewat QRIS 💳",
+    "Habis bayar, kirim bukti ke WhatsApp ya 🧾",
+    "Klik aku buat tos! ✨"
+  ];
+  const klik=["Hehe, geli kak 😆","Tos! 🙌 Mau beli Robux?","Yuk lihat list harganya 👇","Aku maskot toko ini lho ⭐"];
+  let i=0,timer;
+  function say(t){bub.classList.remove("pop");void bub.offsetWidth;bub.textContent=t;bub.classList.add("pop")}
+  function loop(){say(pesan[i++%pesan.length]);timer=setTimeout(loop,4800)}
+  setTimeout(loop,2400);
+
+  av.addEventListener("click",()=>{
+    av.classList.remove("hop");void av.offsetWidth;av.classList.add("hop");
+    clearTimeout(timer);say(klik[Math.floor(Math.random()*klik.length)]);timer=setTimeout(loop,5200);
+  });
+  av.addEventListener("animationend",e=>{if(e.animationName==="hop")av.classList.remove("hop")});
+
+  stage.addEventListener("pointermove",e=>{
+    if(e.pointerType==="touch")return;
+    const r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    tilt.style.transform=`perspective(800px) rotateY(${x*14}deg) rotateX(${-y*8}deg)`;
+  });
+  stage.addEventListener("pointerleave",()=>{tilt.style.transform=""});
+
+  /* progress scroll */
+  const pr=$("#progress");
+  const upd=()=>{const h=document.documentElement,m=h.scrollHeight-h.clientHeight;pr.style.width=(m>0?h.scrollTop/m*100:0)+"%"};
+  addEventListener("scroll",upd,{passive:true});upd();
+
+  /* sorotan cahaya di kartu harga */
+  $("#prices").addEventListener("pointermove",e=>{
+    const c=e.target.closest(".pc");if(!c)return;
+    const r=c.getBoundingClientRect();
+    c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");
+  });
+
+  /* ledakan koin saat klik tombol / avatar */
+  function burst(x,y){
+    const ic=["💎","✨","🪙","⭐"];
+    for(let k=0;k<12;k++){
+      const e=document.createElement("i");e.className="bst";e.textContent=ic[k%4];
+      const a=Math.random()*6.283,d=60+Math.random()*90;
+      e.style.cssText=`left:${x}px;top:${y}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d-40}px`;
+      document.body.appendChild(e);setTimeout(()=>e.remove(),1000);
+    }
+  }
+  document.addEventListener("click",e=>{if(e.target.closest(".btn,#avatar,#fab"))burst(e.clientX,e.clientY)});
+})();
+</script>
+</body>
+</html>

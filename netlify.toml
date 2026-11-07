@@ -1,0 +1,39 @@
+[build]
+  # Netlify membuat testi/daftar.json otomatis dari foto-foto di folder testi
+  command = "node buat-daftar.js"
+  publish = "."
+
+# config.js dan index.html tidak boleh di-cache lama,
+# supaya nomor baru langsung muncul setelah di-upload ulang.
+[[headers]]
+  for = "/config.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Halaman admin tidak perlu muncul di Google
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache, must-revalidate"
+
+# foto boleh di-cache sehari, tapi daftar fotonya harus selalu segar (aturan paling spesifik ditaruh terakhir)
+[[headers]]
+  for = "/testi/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/testi/daftar.json"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"

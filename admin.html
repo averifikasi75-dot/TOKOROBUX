@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ganti Nomor • Admin</title>
+<link rel="icon" type="image/webp" href="assets/avatar.webp">
+<style>
+:root{--pink:#ff3d9a;--cyan:#22e4ff;--gold:#ffc83d;--violet:#8a5cff;--green:#37ff8b;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;min-height:100vh;padding:24px 16px 60px;
+  background:radial-gradient(900px 600px at 10% -10%,#2a0f6e,transparent 60%),radial-gradient(800px 600px at 110% 10%,#00506b,transparent 55%),linear-gradient(160deg,#07041a,#10073a);background-attachment:fixed}
+.wrap{max-width:640px;margin:0 auto}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.top img{width:64px;height:auto;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(34,228,255,.5))}
+@keyframes bob{50%{transform:translateY(-6px)}}
+h1{font-size:clamp(22px,5vw,30px)}
+.top p{opacity:.7;font-size:14px;margin-top:2px}
+.box{padding:22px;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);margin-bottom:16px}
+label{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+label:first-child{margin-top:0}
+label small{font-weight:400;opacity:.65}
+input,textarea{width:100%;padding:13px 15px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:#fff;font-size:17px;font-family:inherit;outline:0;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,228,255,.25)}
+textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.55;min-height:190px;resize:vertical}
+.prev{margin-top:16px;padding:14px 16px;border-radius:14px;background:rgba(55,255,139,.1);border:1px solid rgba(55,255,139,.45);font-size:14px;line-height:1.7}
+.prev b{font-size:20px;color:var(--green);letter-spacing:.03em}
+.prev.err{background:rgba(255,61,154,.12);border-color:rgba(255,61,154,.55)}
+.prev.err b{color:var(--pink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{cursor:pointer;border:0;color:#fff;font-weight:700;font-size:15px;padding:13px 20px;border-radius:99px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan));background-size:200% 100%;transition:transform .25s,box-shadow .25s,background-position .6s;box-shadow:0 10px 26px -8px rgba(255,61,154,.7)}
+.btn:hover{transform:translateY(-2px);background-position:100% 0}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--card);border:1px solid var(--line);box-shadow:none}
+.btn.wa{background:linear-gradient(120deg,#1fbf63,#2ee59d);box-shadow:0 10px 26px -8px rgba(46,229,157,.7)}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+ol{padding-left:20px;line-height:1.8;font-size:14.5px;opacity:.9}
+ol li{margin-bottom:4px}
+h2{font-size:17px;margin-bottom:10px}
+code{background:rgba(255,255,255,.12);padding:1px 7px;border-radius:7px;font-size:13px}
+.ok{display:none;margin-top:10px;font-size:14px;color:var(--green)}
+a.back{color:var(--cyan);font-size:14px;text-decoration:none}
+</style>
+<script src="config.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img src="assets/avatar.webp" alt="">
+    <div><h1>Ganti Nomor WhatsApp</h1><p>Ketik nomor baru, unduh <code>config.js</code>, lalu upload ulang. <a class="back" href="index.html">← ke website</a></p></div>
+  </div>
+
+  <div class="box">
+    <label for="nomor">Nomor WhatsApp baru <small>(format bebas: 0877… / +62877… / 62877…)</small></label>
+    <input id="nomor" type="tel" inputmode="tel" autocomplete="off" placeholder="0877-6900-5955">
+
+    <label for="toko">Nama toko</label>
+    <input id="toko" type="text" autocomplete="off">
+
+    <label for="ba">Nama maskot / BA <small>(opsional, kosongkan kalau tidak perlu)</small></label>
+    <input id="ba" type="text" autocomplete="off" placeholder="contoh: Bunyi">
+
+    <div class="prev" id="prev"></div>
+
+    <div class="row">
+      <button class="btn" id="unduh">⬇️ Unduh config.js</button>
+      <button class="btn ghost" id="salin">📋 Salin isi</button>
+      <a class="btn wa" id="tes" href="#" target="_blank" rel="noopener">💬 Tes buka WhatsApp</a>
+    </div>
+    <div class="ok" id="ok"></div>
+  </div>
+
+  <div class="box">
+    <label for="out">Isi config.js yang dihasilkan</label>
+    <textarea id="out" readonly></textarea>
+  </div>
+
+  <div class="box">
+    <h2>📸 Daftar foto testimoni</h2>
+    <p style="font-size:14px;opacity:.85;line-height:1.6;margin-bottom:12px">Foto testimoni ditaruh di folder <code>testi</code>. Kalau websitemu diupload dengan cara <b>seret folder</b> ke Netlify, pilih foto-fotonya di sini untuk membuat <code>daftar.json</code>, lalu taruh file itu di folder <code>testi</code> sebelum upload. Kalau pakai GitHub, bagian ini tidak perlu karena daftarnya dibuat otomatis.</p>
+    <div class="row" style="margin-top:0">
+      <label class="btn ghost" style="margin:0;cursor:pointer">🖼️ Pilih foto<input id="fotos" type="file" accept="image/*" multiple hidden></label>
+      <label class="btn ghost" style="margin:0;cursor:pointer">📁 Pilih folder testi<input id="fdir" type="file" webkitdirectory hidden></label>
+    </div>
+    <div class="prev" id="prevf" style="display:none"></div>
+    <div class="row"><button class="btn" id="unduhf" disabled style="opacity:.4">⬇️ Unduh daftar.json</button></div>
+  </div>
+
+  <div class="box">
+    <h2>Cara memasang nomor baru di Netlify</h2>
+    <ol>
+      <li>Unduh <code>config.js</code> lewat tombol di atas.</li>
+      <li>Ganti file <code>config.js</code> lama di folder website kamu dengan yang baru.</li>
+      <li>Buka Netlify, masuk ke situs kamu, tab <b>Deploys</b>, lalu seret (drag &amp; drop) seluruh folder website ke area upload.</li>
+      <li>Tunggu beberapa detik sampai statusnya <b>Published</b>, lalu buka websitenya dan cek nomor barunya.</li>
+    </ol>
+    <p style="margin-top:12px;font-size:13px;opacity:.65">Kalau websitenya terhubung ke GitHub, cukup edit <code>config.js</code> di GitHub. Netlify akan memperbaruinya sendiri.</p>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const cur = (typeof SITE !== "undefined" && SITE) || {};
+$("#nomor").value = cur.nomor || "";
+$("#toko").value = cur.namaToko || "Toko Robux";
+$("#ba").value = cur.namaBA || "";
+
+function norm(n){
+  let d = String(n||"").replace(/\D/g,"");
+  if(d.startsWith("0")) d = "62" + d.slice(1);
+  else if(d.startsWith("8")) d = "62" + d;
+  return d;
+}
+function tampil(wa){
+  const l = "0" + wa.replace(/^62/,"");
+  return l.length > 8 ? l.slice(0,4)+"-"+l.slice(4,8)+"-"+l.slice(8) : l;
+}
+function valid(wa){ return /^628\d{8,11}$/.test(wa) }
+
+function buatConfig(){
+  const q = JSON.stringify;
+  return `/* ==================================================================
+   PENGATURAN TOKO
+   Saat ganti nomor WhatsApp, cukup ubah file ini saja.
+   Dibuat lewat halaman /admin pada ${new Date().toLocaleString("id-ID")}.
+================================================================== */
+const SITE = {
+  nomor: ${q($("#nomor").value.trim())},
+  namaToko: ${q($("#toko").value.trim() || "Toko Robux")},
+  namaBA: ${q($("#ba").value.trim())}
+};
+`;
+}
+
+function render(){
+  const wa = norm($("#nomor").value), p = $("#prev"), ok = valid(wa);
+  p.className = "prev" + (ok ? "" : " err");
+  p.innerHTML = ok
+    ? `Nomor tampil di website: <b>${tampil(wa)}</b><br>Link chat: <code>wa.me/${wa}</code>`
+    : `<b>Nomor belum valid.</b><br>Nomor WhatsApp Indonesia diawali 08 / +628 / 628 dan panjangnya 10 sampai 13 digit.`;
+  $("#out").value = buatConfig();
+  const t = $("#tes");
+  t.href = ok ? `https://wa.me/${wa}?text=${encodeURIComponent("Tes nomor baru")}` : "#";
+  t.setAttribute("aria-disabled", ok ? "false" : "true");
+  $("#unduh").disabled = !ok; $("#unduh").style.opacity = ok ? 1 : .4;
+  $("#salin").disabled = !ok; $("#salin").style.opacity = ok ? 1 : .4;
+}
+function info(m){const o=$("#ok");o.textContent=m;o.style.display="block";setTimeout(()=>o.style.display="none",4000)}
+
+["#nomor","#toko","#ba"].forEach(s => $(s).addEventListener("input", render));
+
+$("#unduh").addEventListener("click", () => {
+  if(!valid(norm($("#nomor").value))) return;
+  const b = new Blob([buatConfig()], {type:"text/javascript"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = "config.js";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  info("✅ config.js terunduh. Sekarang upload ulang folder website ke Netlify.");
+});
+$("#salin").addEventListener("click", async () => {
+  if(!valid(norm($("#nomor").value))) return;
+  try{ await navigator.clipboard.writeText(buatConfig()); info("✅ Isi config.js tersalin. Tempel ke file config.js (misalnya di GitHub).") }
+  catch(e){ $("#out").select(); info("Pilih teks di kotak bawah lalu salin manual.") }
+});
+render();
+
+/* ===== Daftar foto testi ===== */
+const EXT = /\.(jpe?g|png|webp|gif|avif)$/i;
+let daftarFoto = [];
+function pakaiFile(files){
+  const l = [...files].map(f => {
+    const p = f.webkitRelativePath || f.name, i = p.indexOf("/");
+    return f.webkitRelativePath && i >= 0 ? p.slice(i+1) : p;
+  }).filter(n => EXT.test(n) && !/(^|\/)\./.test(n));
+  l.sort((x,y) => x.localeCompare(y, undefined, {numeric:true, sensitivity:"base"}));
+  daftarFoto = [...new Set(l)];
+  const p = $("#prevf"), ok = daftarFoto.length > 0;
+  p.style.display = "block";
+  p.className = "prev" + (ok ? "" : " err");
+  p.innerHTML = ok ? `<b>${daftarFoto.length}</b> foto terdeteksi. Klik unduh, lalu taruh <code>daftar.json</code> di folder <code>testi</code>.`
+                   : `<b>Tidak ada foto terdeteksi.</b><br>Pilih file JPG, PNG, atau WEBP.`;
+  $("#unduhf").disabled = !ok; $("#unduhf").style.opacity = ok ? 1 : .4;
+}
+$("#fotos").addEventListener("change", e => pakaiFile(e.target.files));
+$("#fdir").addEventListener("change", e => pakaiFile(e.target.files));
+$("#unduhf").addEventListener("click", () => {
+  if(!daftarFoto.length) return;
+  const b = new Blob([JSON.stringify(daftarFoto, null, 2) + "\n"], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = "daftar.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  info("✅ daftar.json terunduh. Taruh di folder testi, lalu upload ulang ke Netlify.");
+});
+</script>
+</body>
+</html>

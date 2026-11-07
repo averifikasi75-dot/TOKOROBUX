@@ -1,0 +1,6 @@
+Taruh semua foto testimoni (JPG, PNG, WEBP) di folder ini.
+Boleh juga bikin subfolder di dalamnya, misalnya "Oktober" atau "November".
+Website otomatis menampilkan semuanya, dan subfolder tampil sebagai kelompok.
+
+Tips: pakai foto asli dari galeri atau WhatsApp (jangan screenshot dari website)
+supaya hasilnya tajam. Ukuran 200 KB sampai 1 MB per foto sudah cukup.
