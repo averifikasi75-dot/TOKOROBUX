@@ -6,7 +6,7 @@
    Format nomor bebas: 0877..., +62877..., atau 62877...
 ================================================================== */
 const SITE = {
-  nomor: "087769005955",
-  namaToko: "Toko Robux",
+  nomor: "085742222802",
+  namaToko: "STORE ROBUX DUTA L",
   namaBA: ""
 };
